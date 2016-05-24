@@ -32,5 +32,10 @@ public class GroupByPair<K, V> {
 		this.values = values;
 	}
 	
+	@Override
+	public String toString(){
+		return "[" + key + "," + values + "]";
+	}
+	
 	
 }
