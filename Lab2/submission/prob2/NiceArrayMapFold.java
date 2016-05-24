@@ -15,11 +15,14 @@ public class NiceArrayMapFold {
 		int[] b = new int[a.length];
 		int[] c = new int[a.length];
 
+		//map
 		for (int i = 0; i < a.length; i++) {
 			b[i] = f(a[i]);
 		}
 
 		int x = 0; //initial value
+		
+		//fold
 		for (int i = 0; i < a.length; i++) {
 			x = g(x, b[i]);
 			c[i] = x;
