@@ -85,7 +85,10 @@ public class WordCount {
 	private void printData(List<Map<String, Integer>> list) {
 		if (list != null) {
 			for (Map<String, Integer> dict : list) {
-				System.out.println(dict);
+				for (Map.Entry<String, Integer> v : dict.entrySet()) {
+					System.out.println("(" + v.getKey() + "," + v.getValue() + ")");
+
+				}
 			}
 		}
 	}
