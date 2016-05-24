@@ -19,8 +19,9 @@ public class WordCountReducer {
 				String key = keyVal.getKey();
 				int val = keyVal.getValue();
 				
-				if(prevKey.toLowerCase().equals(key.toLowerCase())){
+				if(prevKey.equals(key)){
 					List<Integer> values = groupPair.getValues();
+					System.out.println(values);
 					List<Integer> listValues = new ArrayList<>(values);
 					listValues.add(val);
 					groupPair.setValues(listValues);

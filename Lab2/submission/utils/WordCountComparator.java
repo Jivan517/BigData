@@ -12,6 +12,7 @@ public class WordCountComparator<K, V> {
 
 		Collections.sort(list, new Comparator<KeyValuePair<K, V>>() {
 
+			// each map has single entry
 			@Override
 			public int compare(KeyValuePair<K, V> o1, KeyValuePair<K, V> o2) {
 
