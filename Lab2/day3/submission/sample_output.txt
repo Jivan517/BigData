@@ -1,0 +1,176 @@
+Number of Input-Splits: 3
+Number of Reducers: 4
+
+____________Mapper 0 input_____________
+
+"cat bat" mat-pat mum.edu sat.
+fat 'rat eat cat' mum_cs mat
+
+_____________Mapper 0 Output_____________
+
+<cat,1>
+<bat,1>
+<mat,1>
+<pat,1>
+<sat,1>
+<fat,1>
+<rat,1>
+<eat,1>
+<cat,1>
+<mat,1>
+
+____________Mapper 1 input_____________
+
+bat-hat mat pat "oat
+hat rat mum_cs eat oat-pat
+
+_____________Mapper 1 Output_____________
+
+<bat,1>
+<hat,1>
+<mat,1>
+<pat,1>
+<oat,1>
+<hat,1>
+<rat,1>
+<eat,1>
+<oat,1>
+<pat,1>
+
+____________Mapper 2 input_____________
+
+zat lat-cat pat jat.
+hat rat. kat sat wat
+
+_____________Mapper 2 Output_____________
+
+<zat,1>
+<lat,1>
+<cat,1>
+<pat,1>
+<jat,1>
+<hat,1>
+<rat,1>
+<kat,1>
+<sat,1>
+<wat,1>
+
+________Pairs sent from Mapper 0 to Reducer 0__________
+
+<eat,1>
+<mat,1>
+<mat,1>
+
+________Pairs sent from Mapper 0 to Reducer 1__________
+
+<bat,1>
+<fat,1>
+<rat,1>
+
+________Pairs sent from Mapper 0 to Reducer 2__________
+
+<cat,1>
+<cat,1>
+<sat,1>
+
+________Pairs sent from Mapper 0 to Reducer 3__________
+
+<pat,1>
+
+________Pairs sent from Mapper 1 to Reducer 0__________
+
+<eat,1>
+<mat,1>
+
+________Pairs sent from Mapper 1 to Reducer 1__________
+
+<bat,1>
+<rat,1>
+
+________Pairs sent from Mapper 1 to Reducer 2__________
+
+<oat,1>
+<oat,1>
+
+________Pairs sent from Mapper 1 to Reducer 3__________
+
+<hat,1>
+<hat,1>
+<pat,1>
+<pat,1>
+
+________Pairs sent from Mapper 2 to Reducer 0__________
+
+
+________Pairs sent from Mapper 2 to Reducer 1__________
+
+<jat,1>
+<rat,1>
+<zat,1>
+
+________Pairs sent from Mapper 2 to Reducer 2__________
+
+<cat,1>
+<kat,1>
+<sat,1>
+<wat,1>
+
+________Pairs sent from Mapper 2 to Reducer 3__________
+
+<hat,1>
+<lat,1>
+<pat,1>
+
+_____________Reducer 0 Input_____________
+
+<eat,[1, 1]>
+<mat,[1, 1, 1]>
+
+_____________Reducer 1 Input_____________
+
+<bat,[1, 1]>
+<fat,[1]>
+<jat,[1]>
+<rat,[1, 1, 1]>
+<zat,[1]>
+
+_____________Reducer 2 Input_____________
+
+<cat,[1, 1, 1]>
+<kat,[1]>
+<oat,[1, 1]>
+<sat,[1, 1]>
+<wat,[1]>
+
+_____________Reducer 3 Input_____________
+
+<hat,[1, 1, 1]>
+<lat,[1]>
+<pat,[1, 1, 1, 1]>
+
+_____________Reducer 0 Output_____________
+
+<eat,2>
+<mat,3>
+
+_____________Reducer 1 Output_____________
+
+<bat,2>
+<fat,1>
+<jat,1>
+<rat,3>
+<zat,1>
+
+_____________Reducer 2 Output_____________
+
+<cat,3>
+<kat,1>
+<oat,2>
+<sat,2>
+<wat,1>
+
+_____________Reducer 3 Output_____________
+
+<hat,3>
+<lat,1>
+<pat,4>
