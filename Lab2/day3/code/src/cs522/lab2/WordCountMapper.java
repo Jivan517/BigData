@@ -66,7 +66,7 @@ public class WordCountMapper {
 	public List<KeyValuePair<String, Integer>> map(String rawToken) {
 
 		List<KeyValuePair<String, Integer>> list = new ArrayList<>();
-		rawToken = rawToken.replace("\"", "");
+		rawToken = rawToken.replace("\"", "").replace("'", "");
 		String[] splittedToken = rawToken.split("-");
 		for (String token : splittedToken) {
 

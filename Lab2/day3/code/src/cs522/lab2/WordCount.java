@@ -1,13 +1,9 @@
 package cs522.lab2;
 
-import java.io.BufferedReader;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import cs522.lab2.utils.GroupByPair;
 import cs522.lab2.utils.KeyValuePair;
@@ -62,13 +58,13 @@ public class WordCount {
 		List<List<KeyValuePair<String, Integer>>> allMappedPairs = new ArrayList<>();
 		int[] a = new int[4];
 
-		// map step input to key value pairs with m-mappers
+		// map step: input to key value pairs with m-mappers
 		Path file;
 		for (int i = 0; i < numberOfInputSplits; i++) {
 
-			System.out.println("\n____________Mapper " + i +" input_____________\n");
+			System.out.println("\n____________Mapper " + i + " input_____________\n");
 			file = Paths.get(files[i]);
-			
+
 			WordCountMapper mapper = new WordCountMapper(file);
 			List<KeyValuePair<String, Integer>> list = mapper.processWordCount();
 			System.out.println("\n_____________Mapper " + i + " Output_____________\n");
@@ -76,26 +72,25 @@ public class WordCount {
 			printListOfKeyValuePair(list);
 		}
 
-		//shuffle
+		// shuffle
 		List<List<KeyValuePair<String, Integer>>> partitionedPairs = shuffle(allMappedPairs);
 
-		//reduce
+		// sort and prepare for reducer input
 		List<List<GroupByPair<String, Integer>>> reducerInputs = new ArrayList<List<GroupByPair<String, Integer>>>();
 		for (int i = 0; i < numberOfReducers; i++) {
 
-			//prepare reducer input
 			WordCountReducer reducer = new WordCountReducer();
 			List<GroupByPair<String, Integer>> reducerInput = reducer.combine(partitionedPairs.get(i));
 			System.out.println("\n_____________Reducer " + i + " Input_____________\n");
 			printListOfGroupByPair(reducerInput);
 
 			reducerInputs.add(reducerInput);
-			
-			
+
 		}
-		
-		for(int i = 0; i < numberOfReducers; i++){
-			
+
+		// reduce
+		for (int i = 0; i < numberOfReducers; i++) {
+
 			WordCountReducer reducer = new WordCountReducer();
 			List<GroupByPair<String, Integer>> reducerInput = reducerInputs.get(i);
 			System.out.println("\n_____________Reducer " + i + " Output_____________\n");
@@ -107,21 +102,49 @@ public class WordCount {
 
 	private List<List<KeyValuePair<String, Integer>>> shuffle(
 			List<List<KeyValuePair<String, Integer>>> allMappedPairs) {
-		List<List<KeyValuePair<String, Integer>>> partitionedPairs = new ArrayList<List<KeyValuePair<String, Integer>>>();
 
-		for(int i = 0; i < this.numberOfReducers; i++){
+		List<List<KeyValuePair<String, Integer>>> partitionedPairs = new ArrayList<List<KeyValuePair<String, Integer>>>();
+		List<List<List<KeyValuePair<String, Integer>>>> shuffledKeys = new ArrayList<>();
+
+		for (int i = 0; i < this.numberOfInputSplits; i++) {
+			shuffledKeys.add(new ArrayList<List<KeyValuePair<String, Integer>>>());
+		}
+		for (int i = 0; i < this.numberOfInputSplits; i++) {
+			for (int j = 0; j < this.numberOfReducers; j++) {
+				shuffledKeys.get(i).add(new ArrayList<KeyValuePair<String, Integer>>());
+			}
+		}
+
+		for (int i = 0; i < this.numberOfReducers; i++) {
 			partitionedPairs.add(new ArrayList<KeyValuePair<String, Integer>>());
 		}
-		
-		// shuffle  step
+
+		// shuffle step
+		int i = 0;
 		for (List<KeyValuePair<String, Integer>> list : allMappedPairs) {
 			for (KeyValuePair<String, Integer> pair : list) {
 				int partitionLevel = getPartition(pair.getKey());
 
+				shuffledKeys.get(i).get(partitionLevel).add(pair);
 				partitionedPairs.get(partitionLevel).add(pair);
 			}
 
+			i++;
+
 		}
+		WordCountComparator<String, Integer> comparator = new WordCountComparator<>();
+		for (int j = 0; j < this.numberOfInputSplits; j++) {
+			for (int k = 0; k < this.numberOfReducers; k++) {
+				System.out.println("\n________Pairs sent from Mapper " + j + " to Reducer " + k + "__________\n");
+				if (shuffledKeys.size() > j && shuffledKeys.get(j).size() > k) {
+					List<KeyValuePair<String, Integer>> partitionedList = shuffledKeys.get(j).get(k);
+					comparator.sort(partitionedList);
+					for (KeyValuePair<String, Integer> keyVal : partitionedList)
+						System.out.println("<" + keyVal.getKey() + "," + keyVal.getValue() + ">");
+				}
+			}
+		}
+
 		return partitionedPairs;
 	}
 
@@ -142,7 +165,5 @@ public class WordCount {
 			}
 		}
 	}
-
-	
 
 }
