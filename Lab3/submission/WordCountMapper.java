@@ -1,4 +1,4 @@
-package cs522.lab2.prob2;
+package cs522.lab2;
 
 import java.io.BufferedReader;
 import java.nio.charset.Charset;
@@ -19,9 +19,9 @@ public class WordCountMapper {
 		this.file = file;
 	}
 
-	public List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>> processWordCount() {
+	public List<KeyValuePair<String, Integer>> processWordCount() {
 
-		List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>> combinedList = new ArrayList<>();
+		List<KeyValuePair<String, Integer>> combinedList = new ArrayList<>();
 		if (Files.exists(file) && Files.isReadable(file)) {
 
 			try {
@@ -36,7 +36,7 @@ public class WordCountMapper {
 					String[] words = line.split("\\s+");
 					for (String word : words) {
 						if (word.trim() != "") {
-							List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>> processedWords = map(word);
+							List<KeyValuePair<String, Integer>> processedWords = map(word);
 							if (!processedWords.isEmpty()) {
 								combinedList.addAll(processedWords);
 							}
@@ -48,8 +48,8 @@ public class WordCountMapper {
 				reader.close();
 
 				// In-Mapper combiner
-				List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>> inMapperCombinedList = new ArrayList<>();
-				for (KeyValuePair<Character, KeyValuePair<Integer, Integer>> pair : combinedList) {
+				List<KeyValuePair<String, Integer>> inMapperCombinedList = new ArrayList<>();
+				for (KeyValuePair<String, Integer> pair : combinedList) {
 					int length = inMapperCombinedList.size();
 					if (length < 1) {
 						inMapperCombinedList.add(pair);
@@ -57,15 +57,9 @@ public class WordCountMapper {
 
 						boolean isFound = false;
 						for (int i = 0; i < length; i++) {
-							if (inMapperCombinedList.get(i).getKey().toString().toLowerCase()
-									.equals(pair.getKey().toString().toLowerCase())) {
-
-								KeyValuePair<Integer, Integer> keyVal = inMapperCombinedList.get(i).getValue();
-								KeyValuePair<Integer, Integer> pairKeyVal = pair.getValue();
-								inMapperCombinedList.get(i)
-										.setValue(new KeyValuePair<Integer, Integer>(
-												keyVal.getKey() + pairKeyVal.getKey(),
-												keyVal.getValue() + pairKeyVal.getValue()));
+							if (inMapperCombinedList.get(i).getKey().equals(pair.getKey())) {
+								int value = inMapperCombinedList.get(i).getValue();
+								inMapperCombinedList.get(i).setValue(value + pair.getValue());
 								isFound = true;
 								break;
 
@@ -90,9 +84,9 @@ public class WordCountMapper {
 		return null;
 	}
 
-	public List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>> map(String rawToken) {
+	public List<KeyValuePair<String, Integer>> map(String rawToken) {
 
-		List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>> list = new ArrayList<>();
+		List<KeyValuePair<String, Integer>> list = new ArrayList<>();
 		rawToken = rawToken.replace("\"", "").replace("'", "");
 		String[] splittedToken = rawToken.split("-");
 		for (String token : splittedToken) {
@@ -100,8 +94,7 @@ public class WordCountMapper {
 			// check for valid word
 			if (Pattern.matches("([a-zA-Z]+\\.)||([a-zA-Z]+)", token)) {
 				token = token.replace(".", "");
-				list.add(new KeyValuePair<Character, KeyValuePair<Integer, Integer>>(Character.toLowerCase(token.charAt(0)),
-						new KeyValuePair<Integer, Integer>(token.length(), 1)));
+				list.add(new KeyValuePair<String, Integer>(token, 1));
 			}
 		}
 

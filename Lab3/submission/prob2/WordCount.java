@@ -1,4 +1,4 @@
-package cs522.lab2;
+package cs522.lab2.prob2;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -55,7 +55,7 @@ public class WordCount {
 
 	public void submitJob() {
 
-		List<List<KeyValuePair<String, Integer>>> allMappedPairs = new ArrayList<>();
+		List<List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>>> allMappedPairs = new ArrayList<>();
 
 		// map step: input to key value pairs with m-mappers
 		Path file;
@@ -65,23 +65,23 @@ public class WordCount {
 			file = Paths.get(files[i]);
 
 			WordCountMapper mapper = new WordCountMapper(file);
-			List<KeyValuePair<String, Integer>> list = mapper.processWordCount();
+			List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>> list = mapper.processWordCount();
 			System.out.println("\n_____________Mapper " + i + " Output_____________\n");
 			allMappedPairs.add(list);
 			printListOfKeyValuePair(list);
 		}
-		
+
 		/**/
 
 		// shuffle
-		List<List<KeyValuePair<String, Integer>>> partitionedPairs = shuffle(allMappedPairs);
+		List<List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>>> partitionedPairs = shuffle(allMappedPairs);
 
 		// sort and prepare for reducer input
-		List<List<GroupByPair<String, Integer>>> reducerInputs = new ArrayList<List<GroupByPair<String, Integer>>>();
+		List<List<GroupByPair<Character, KeyValuePair<Integer, Integer>>>> reducerInputs = new ArrayList<List<GroupByPair<Character, KeyValuePair<Integer, Integer>>>>();
 		for (int i = 0; i < numberOfReducers; i++) {
 
 			WordCountReducer reducer = new WordCountReducer();
-			List<GroupByPair<String, Integer>> reducerInput = reducer.combine(partitionedPairs.get(i));
+			List<GroupByPair<Character, KeyValuePair<Integer, Integer>>> reducerInput = reducer.combine(partitionedPairs.get(i));
 			System.out.println("\n_____________Reducer " + i + " Input_____________\n");
 			printListOfGroupByPair(reducerInput);
 
@@ -93,41 +93,41 @@ public class WordCount {
 		for (int i = 0; i < numberOfReducers; i++) {
 
 			WordCountReducer reducer = new WordCountReducer();
-			List<GroupByPair<String, Integer>> reducerInput = reducerInputs.get(i);
+			List<GroupByPair<Character, KeyValuePair<Integer, Integer>>> reducerInput = reducerInputs.get(i);
 			System.out.println("\n_____________Reducer " + i + " Output_____________\n");
-			List<KeyValuePair<String, Integer>> reducerOutput = reducer.wordCountReduce(reducerInput);
-			printListOfKeyValuePair(reducerOutput);
+			List<KeyValuePair<Character, Double>> reducerOutput = reducer.wordCountReduce(reducerInput);
+			printList(reducerOutput);
 		}
-		
+
 		/**/
 
 	}
 
-	private List<List<KeyValuePair<String, Integer>>> shuffle(
-			List<List<KeyValuePair<String, Integer>>> allMappedPairs) {
+	private List<List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>>> shuffle(
+			List<List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>>> allMappedPairs) {
 
-		List<List<KeyValuePair<String, Integer>>> partitionedPairs = new ArrayList<List<KeyValuePair<String, Integer>>>();
-		List<List<List<KeyValuePair<String, Integer>>>> shuffledKeys = new ArrayList<>();
+		List<List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>>> partitionedPairs = 
+				new ArrayList<List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>>>();
+		List<List<List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>>>> shuffledKeys = new ArrayList<>();
 
 		for (int i = 0; i < this.numberOfInputSplits; i++) {
-			shuffledKeys.add(new ArrayList<List<KeyValuePair<String, Integer>>>());
+			shuffledKeys.add(new ArrayList<List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>>>());
 		}
-		
 		for (int i = 0; i < this.numberOfInputSplits; i++) {
 			for (int j = 0; j < this.numberOfReducers; j++) {
-				shuffledKeys.get(i).add(new ArrayList<KeyValuePair<String, Integer>>());
+				shuffledKeys.get(i).add(new ArrayList<KeyValuePair<Character, KeyValuePair<Integer, Integer>>>());
 			}
 		}
 
 		for (int i = 0; i < this.numberOfReducers; i++) {
-			partitionedPairs.add(new ArrayList<KeyValuePair<String, Integer>>());
+			partitionedPairs.add(new ArrayList<KeyValuePair<Character, KeyValuePair<Integer, Integer>>>());
 		}
 
 		// shuffle step
 		int i = 0;
-		for (List<KeyValuePair<String, Integer>> list : allMappedPairs) {
-			for (KeyValuePair<String, Integer> pair : list) {
-				int partitionLevel = getPartition(pair.getKey());
+		for (List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>> list : allMappedPairs) {
+			for (KeyValuePair<Character, KeyValuePair<Integer, Integer>> pair : list) {
+				int partitionLevel = getPartition(pair.getKey().toString());
 
 				shuffledKeys.get(i).get(partitionLevel).add(pair);
 				partitionedPairs.get(partitionLevel).add(pair);
@@ -136,14 +136,15 @@ public class WordCount {
 			i++;
 
 		}
-		WordCountComparator<String, Integer> comparator = new WordCountComparator<>();
+		
+		WordCountComparator<Character, KeyValuePair<Integer, Integer>> comparator = new WordCountComparator<>();
 		for (int j = 0; j < this.numberOfInputSplits; j++) {
 			for (int k = 0; k < this.numberOfReducers; k++) {
 				System.out.println("\n________Pairs sent from Mapper " + j + " to Reducer " + k + "__________\n");
 				if (shuffledKeys.size() > j && shuffledKeys.get(j).size() > k) {
-					List<KeyValuePair<String, Integer>> partitionedList = shuffledKeys.get(j).get(k);
+					List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>> partitionedList = shuffledKeys.get(j).get(k);
 					comparator.sort(partitionedList);
-					for (KeyValuePair<String, Integer> keyVal : partitionedList)
+					for (KeyValuePair<Character, KeyValuePair<Integer, Integer>> keyVal : partitionedList)
 						System.out.println("<" + keyVal.getKey() + "," + keyVal.getValue() + ">");
 				}
 			}
@@ -152,19 +153,28 @@ public class WordCount {
 		return partitionedPairs;
 	}
 
-	private static void printListOfKeyValuePair(List<KeyValuePair<String, Integer>> list) {
+	private static void printListOfKeyValuePair(List<KeyValuePair<Character, KeyValuePair<Integer, Integer>>> list) {
 		if (list != null) {
-			for (KeyValuePair<String, Integer> dict : list) {
+			for (KeyValuePair<Character, KeyValuePair<Integer, Integer>> dict : list) {
 				System.out.println("<" + dict.getKey() + "," + dict.getValue() + ">");
 
 			}
 		}
 	}
 
-	private static void printListOfGroupByPair(List<GroupByPair<String, Integer>> list) {
+	private static void printListOfGroupByPair(List<GroupByPair<Character, KeyValuePair<Integer, Integer>>> list) {
 		if (list != null) {
-			for (GroupByPair<String, Integer> item : list) {
+			for (GroupByPair<Character, KeyValuePair<Integer, Integer>> item : list) {
 				System.out.println("<" + item.getKey() + "," + item.getValues() + ">");
+
+			}
+		}
+	}
+	
+	private static void printList(List<KeyValuePair<Character, Double>> list) {
+		if (list != null) {
+			for (KeyValuePair<Character, Double> item : list) {
+				System.out.println("<" + item.getKey() + "," + item.getValue() + ">");
 
 			}
 		}
