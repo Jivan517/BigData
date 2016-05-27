@@ -44,6 +44,7 @@ public class KeyValuePair<K, V> {
 		if (o instanceof KeyValuePair == false)
 			return false;
 
+		@SuppressWarnings("unchecked")
 		KeyValuePair<K, V> pair = (KeyValuePair<K, V>) o;
 		if (pair.key == this.key && pair.value == this.value)
 			return true;

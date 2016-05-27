@@ -53,7 +53,6 @@ public class PairApproachReducer {
 
 	public KeyValuePair<KeyValuePair<Integer, Integer>, Integer> reduce(GroupByPair<KeyValuePair<Integer, Integer>, Integer> groupByPair) {
 
-		KeyValuePair<KeyValuePair<Integer, Integer>, Integer> keyVal = new KeyValuePair<>();
 		if (groupByPair != null) {
 			KeyValuePair<Integer, Integer> key = groupByPair.getKey();
 			int sum = 0;

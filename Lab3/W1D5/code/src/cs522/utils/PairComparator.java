@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class PairComparator<K, V, V1> {
+	@SuppressWarnings("hiding")
 	public <K extends Comparable<? super K>, V extends Comparable<? super V>> List<KeyValuePair<KeyValuePair<K, V>, V1>> sort(List<KeyValuePair<KeyValuePair<K, V>, V1>> list) {
 
 		Collections.sort(list, new Comparator<KeyValuePair<KeyValuePair<K, V>, V1>>() {
