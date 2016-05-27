@@ -1,4 +1,4 @@
-package prob4;
+package cs522.lab3d5.prob4;
 
 import java.io.BufferedReader;
 import java.nio.charset.Charset;

@@ -1,4 +1,4 @@
-package prob4;
+package cs522.lab3d5.prob4;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
