@@ -1,0 +1,8 @@
+t1	m1	r11
+t1	m2	r12
+t1	m3	r13
+t1	m4	r14
+t4	m1	r41
+t4	m2	r42
+t4	m3	r43
+t4	m4	r44

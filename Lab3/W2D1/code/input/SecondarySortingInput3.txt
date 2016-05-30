@@ -1,0 +1,8 @@
+t2	m1	r21
+t2	m2	r22
+t2	m3	r23
+t2	m4	r24
+t5	m1	r51
+t5	m2	r52
+t5	m3	r53
+t5	m4	r54
