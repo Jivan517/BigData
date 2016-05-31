@@ -54,7 +54,7 @@ public class InvertedIndex {
 	public int getPartition(String key) {
 
 		//return (int) key.hashCode() % numberOfReducers;
-		return Math.abs((int) key.hashCode() % numberOfReducers);
+		return Math.abs((int) key.hashCode()) % numberOfReducers;
 	}
 
 	public void submitJob() {
