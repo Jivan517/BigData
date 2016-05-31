@@ -1,0 +1,357 @@
+Number of Input-Splits: 4
+Number of Reducers: 4
+
+____________Mapper 0 input_____________
+
+DocID = 112
+Art is beautiful and life enhancing. However it pays very little. 
+Many artists have a hard life.
+
+_____________Mapper 0 Output_____________
+
+<(art,112),1>
+<(is,112),1>
+<(beautiful,112),1>
+<(and,112),1>
+<(life,112),2>
+<(enhancing,112),1>
+<(however,112),1>
+<(it,112),1>
+<(pays,112),1>
+<(very,112),1>
+<(little,112),1>
+<(many,112),1>
+<(artists,112),1>
+<(have,112),1>
+<(a,112),1>
+<(hard,112),1>
+
+____________Mapper 1 input_____________
+
+DocID = 234
+Sun is there every day. Moon comes every day. 
+Let us live every day as the best day so far.
+
+_____________Mapper 1 Output_____________
+
+<(sun,234),1>
+<(is,234),1>
+<(there,234),1>
+<(every,234),3>
+<(day,234),4>
+<(moon,234),1>
+<(comes,234),1>
+<(let,234),1>
+<(us,234),1>
+<(live,234),1>
+<(as,234),1>
+<(the,234),1>
+<(best,234),1>
+<(so,234),1>
+<(far,234),1>
+
+____________Mapper 2 input_____________
+
+DocID = 356
+Meditation is very important for the development of consciousness. 
+So let us meditate every day.
+
+_____________Mapper 2 Output_____________
+
+<(meditation,356),1>
+<(is,356),1>
+<(very,356),1>
+<(important,356),1>
+<(for,356),1>
+<(the,356),1>
+<(development,356),1>
+<(of,356),1>
+<(consciousness,356),1>
+<(so,356),1>
+<(let,356),1>
+<(us,356),1>
+<(meditate,356),1>
+<(every,356),1>
+<(day,356),1>
+
+____________Mapper 3 input_____________
+
+DocID = 679
+Earth is blue if you look from outer space. Mars is red. Moon is yellow. 
+Sun is white. What a wonderful world.
+
+_____________Mapper 3 Output_____________
+
+<(earth,679),1>
+<(is,679),4>
+<(blue,679),1>
+<(if,679),1>
+<(you,679),1>
+<(look,679),1>
+<(from,679),1>
+<(outer,679),1>
+<(space,679),1>
+<(mars,679),1>
+<(red,679),1>
+<(moon,679),1>
+<(yellow,679),1>
+<(sun,679),1>
+<(white,679),1>
+<(what,679),1>
+<(a,679),1>
+<(wonderful,679),1>
+<(world,679),1>
+
+________Pairs sent from Mapper 0 to Reducer 0__________
+
+<(life,112),2>
+<(have,112),1>
+<(artists,112),1>
+
+________Pairs sent from Mapper 0 to Reducer 1__________
+
+<(a,112),1>
+
+________Pairs sent from Mapper 0 to Reducer 2__________
+
+<(very,112),1>
+<(little,112),1>
+<(is,112),1>
+<(however,112),1>
+
+________Pairs sent from Mapper 0 to Reducer 3__________
+
+<(pays,112),1>
+<(many,112),1>
+<(it,112),1>
+<(hard,112),1>
+<(enhancing,112),1>
+<(beautiful,112),1>
+<(art,112),1>
+<(and,112),1>
+
+________Pairs sent from Mapper 1 to Reducer 0__________
+
+<(there,234),1>
+<(sun,234),1>
+<(so,234),1>
+<(live,234),1>
+<(day,234),4>
+<(best,234),1>
+
+________Pairs sent from Mapper 1 to Reducer 1__________
+
+<(the,234),1>
+<(moon,234),1>
+
+________Pairs sent from Mapper 1 to Reducer 2__________
+
+<(us,234),1>
+<(is,234),1>
+<(as,234),1>
+
+________Pairs sent from Mapper 1 to Reducer 3__________
+
+<(let,234),1>
+<(far,234),1>
+<(every,234),3>
+<(comes,234),1>
+
+________Pairs sent from Mapper 2 to Reducer 0__________
+
+<(so,356),1>
+<(day,356),1>
+
+________Pairs sent from Mapper 2 to Reducer 1__________
+
+<(the,356),1>
+<(meditate,356),1>
+<(for,356),1>
+<(development,356),1>
+
+________Pairs sent from Mapper 2 to Reducer 2__________
+
+<(very,356),1>
+<(us,356),1>
+<(meditation,356),1>
+<(is,356),1>
+<(important,356),1>
+
+________Pairs sent from Mapper 2 to Reducer 3__________
+
+<(of,356),1>
+<(let,356),1>
+<(every,356),1>
+<(consciousness,356),1>
+
+________Pairs sent from Mapper 3 to Reducer 0__________
+
+<(yellow,679),1>
+<(what,679),1>
+<(sun,679),1>
+
+________Pairs sent from Mapper 3 to Reducer 1__________
+
+<(white,679),1>
+<(red,679),1>
+<(moon,679),1>
+<(mars,679),1>
+<(if,679),1>
+<(a,679),1>
+
+________Pairs sent from Mapper 3 to Reducer 2__________
+
+<(world,679),1>
+<(wonderful,679),1>
+<(space,679),1>
+<(is,679),4>
+<(from,679),1>
+<(earth,679),1>
+<(blue,679),1>
+
+________Pairs sent from Mapper 3 to Reducer 3__________
+
+<(you,679),1>
+<(outer,679),1>
+<(look,679),1>
+
+_____________Reducer 0 Input_____________
+
+<(yellow,679),[1]>
+<(what,679),[1]>
+<(there,234),[1]>
+<(sun,234),[1]>
+<(sun,679),[1]>
+<(so,234),[1]>
+<(so,356),[1]>
+<(live,234),[1]>
+<(life,112),[2]>
+<(have,112),[1]>
+<(day,234),[4]>
+<(day,356),[1]>
+<(best,234),[1]>
+<(artists,112),[1]>
+
+_____________Reducer 1 Input_____________
+
+<(white,679),[1]>
+<(the,234),[1]>
+<(the,356),[1]>
+<(red,679),[1]>
+<(moon,234),[1]>
+<(moon,679),[1]>
+<(meditate,356),[1]>
+<(mars,679),[1]>
+<(if,679),[1]>
+<(for,356),[1]>
+<(development,356),[1]>
+<(a,112),[1]>
+<(a,679),[1]>
+
+_____________Reducer 2 Input_____________
+
+<(world,679),[1]>
+<(wonderful,679),[1]>
+<(very,112),[1]>
+<(very,356),[1]>
+<(us,234),[1]>
+<(us,356),[1]>
+<(space,679),[1]>
+<(meditation,356),[1]>
+<(little,112),[1]>
+<(is,112),[1]>
+<(is,234),[1]>
+<(is,356),[1]>
+<(is,679),[4]>
+<(important,356),[1]>
+<(however,112),[1]>
+<(from,679),[1]>
+<(earth,679),[1]>
+<(blue,679),[1]>
+<(as,234),[1]>
+
+_____________Reducer 3 Input_____________
+
+<(you,679),[1]>
+<(pays,112),[1]>
+<(outer,679),[1]>
+<(of,356),[1]>
+<(many,112),[1]>
+<(look,679),[1]>
+<(let,234),[1]>
+<(let,356),[1]>
+<(it,112),[1]>
+<(hard,112),[1]>
+<(far,234),[1]>
+<(every,234),[3]>
+<(every,356),[1]>
+<(enhancing,112),[1]>
+<(consciousness,356),[1]>
+<(comes,234),[1]>
+<(beautiful,112),[1]>
+<(art,112),[1]>
+<(and,112),[1]>
+
+_____________Reducer 0 Output_____________
+
+yellow--->(679,1)
+what--->(679,1)
+there--->(234,1)
+sun--->(234,1)--->(679,1)
+so--->(234,1)--->(356,1)
+live--->(234,1)
+life--->(112,2)
+have--->(112,1)
+day--->(234,4)--->(356,1)
+best--->(234,1)
+artists--->(112,1)
+
+_____________Reducer 1 Output_____________
+
+white--->(679,1)
+the--->(234,1)--->(356,1)
+red--->(679,1)
+moon--->(234,1)--->(679,1)
+meditate--->(356,1)
+mars--->(679,1)
+if--->(679,1)
+for--->(356,1)
+development--->(356,1)
+a--->(112,1)--->(679,1)
+
+_____________Reducer 2 Output_____________
+
+world--->(679,1)
+wonderful--->(679,1)
+very--->(112,1)--->(356,1)
+us--->(234,1)--->(356,1)
+space--->(679,1)
+meditation--->(356,1)
+little--->(112,1)
+is--->(112,1)--->(234,1)--->(356,1)--->(679,4)
+important--->(356,1)
+however--->(112,1)
+from--->(679,1)
+earth--->(679,1)
+blue--->(679,1)
+as--->(234,1)
+
+_____________Reducer 3 Output_____________
+
+you--->(679,1)
+pays--->(112,1)
+outer--->(679,1)
+of--->(356,1)
+many--->(112,1)
+look--->(679,1)
+let--->(234,1)--->(356,1)
+it--->(112,1)
+hard--->(112,1)
+far--->(234,1)
+every--->(234,3)--->(356,1)
+enhancing--->(112,1)
+consciousness--->(356,1)
+comes--->(234,1)
+beautiful--->(112,1)
+art--->(112,1)
+and--->(112,1)
