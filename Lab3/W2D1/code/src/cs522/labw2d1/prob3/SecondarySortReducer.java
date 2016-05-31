@@ -51,7 +51,7 @@ public class SecondarySortReducer {
 		return null;
 	}
 
-	public KeyValuePair<KeyValuePair<String, String>, String> reduce(GroupByPair<KeyValuePair<String, String>, String> groupByPair) {
+	public KeyValuePair<String, String> reduce(GroupByPair<KeyValuePair<String, String>, String> groupByPair) {
 
 		if (groupByPair != null) {
 			KeyValuePair<String, String> key = groupByPair.getKey();
@@ -60,15 +60,15 @@ public class SecondarySortReducer {
 				sum += val;
 			}
 
-			return new KeyValuePair<>(key, sum);
+			return new KeyValuePair<>(key.getKey() + ","  + key.getValue(), sum);
 		}
 
 		return null;
 	}
 
-	public List<KeyValuePair<KeyValuePair<String, String>, String>> beginReducer(List<GroupByPair<KeyValuePair<String, String>, String>> pairs) {
+	public List<KeyValuePair<String, String>> beginReducer(List<GroupByPair<KeyValuePair<String, String>, String>> pairs) {
 
-		List<KeyValuePair<KeyValuePair<String, String>, String>> reducedList = new ArrayList<>();
+		List<KeyValuePair<String, String>> reducedList = new ArrayList<>();
 		if (pairs != null) {
 
 			for (GroupByPair<KeyValuePair<String, String>, String> pair : pairs) {

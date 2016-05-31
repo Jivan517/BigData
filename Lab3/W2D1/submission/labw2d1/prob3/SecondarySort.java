@@ -94,9 +94,9 @@ public class SecondarySort {
 
 			List<GroupByPair<KeyValuePair<String, String>, String>> reducerInput = reducerInputs.get(i);
 			System.out.println("\n_____________Reducer " + i + " Output_____________\n");
-			List<KeyValuePair<KeyValuePair<String, String>, String>> reducerOutput = reducer
+			List<KeyValuePair<String, String>> reducerOutput = reducer
 					.beginReducer(reducerInput);
-			Printer.printListOfKeyValuePairs(reducerOutput);
+			Printer.printListOfKeyValuePair(reducerOutput);
 		}
 
 	}
