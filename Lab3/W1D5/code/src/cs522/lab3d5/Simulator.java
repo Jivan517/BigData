@@ -5,6 +5,7 @@ public class Simulator {
 
 	public static void main(String[] args) {
 
+		System.out.println(4%-1);
 		//Word Co-occurance Problem solution with Pair Approach  with m-mappers and r-reducers
 		PairApproach wc = new PairApproach(2, 4,
 				new String[] { "./input/input1.txt", "./input/input2.txt"});

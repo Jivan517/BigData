@@ -1,0 +1,4 @@
+cat	{mat = 0.25 , rat = 0.25 , pat = 0.5}
+mat	{pat = 1.0}
+pat	{mat = 0.5 , rat = 0.5}
+rat	{mat = 0.5 , pat = 0.5}
