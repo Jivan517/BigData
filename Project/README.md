@@ -14,7 +14,6 @@ For the purpose of this project you can assume that historical customer data is 
 
 92 29 18 12 34 79 29 56 12 34 18  // items bought by another customer, listed in the order she bought it
 
-…
 
  
 
@@ -25,9 +24,8 @@ Example: Let Data block be [a b c a d e]
 N(a) = {b, c}, N(b) = {c, a, d, e}, N(c) = {a, d, e}, N(a) ={d, e}, N(d) = {e}, N(e) = {}.
 
  
- 
 
-Part 1. [5 point]  Set up a single node cluster and optionally an eclipse development environment to create and test your programs.
+Part 1. Set up a single node cluster and optionally an eclipse development environment to create and test your programs.
 
 (a) Get VMWare or VirtualBox (install)
 
@@ -39,15 +37,20 @@ Document all the steps and submit. It should be as detailed as the sample docume
 
 If the detailed document is not there, the credit will be 0 for Part 1.
 
+
 Part 2. Implement Pairs algorithm to compute relative frequencies.
 
-[2 points] Create Java classes (.java files)
-[1 points] Show input, output and batch file to execute your program at command line in Hadoop.
+Create Java classes (.java files)
+Show input, output and batch file to execute your program at command line in Hadoop.
+
+
 Part 3. Implement Stripes algorithm to compute relative frequencies.
 
-[2 points] Create Java classes (.java files)
-[1 points] Show input, output and batch file to execute your program at command line in Hadoop.
+Create Java classes (.java files)
+Show input, output and batch file to execute your program at command line in Hadoop.
+
+
 Part 4. Implement Pairs in Mapper and Stripes in Reducer to compute relative frequencies.
 
-[2 points] Create Java classes (.java files)
-[1 points] Show input, output and batch file to execute your program at command line in Hadoop.
+Create Java classes (.java files)
+Show input, output and batch file to execute your program at command line in Hadoop.
