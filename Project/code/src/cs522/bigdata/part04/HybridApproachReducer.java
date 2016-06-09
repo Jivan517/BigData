@@ -33,7 +33,7 @@ public class HybridApproachReducer extends
 		String neighborPair = key.getValue().toString();
 
 		//emit
-		if (!previousKey.equals(keyPair)) {
+		if (!previousKey.equals(keyPair) && previousKey != "") {
 			String result = "";
 			int count = 0;
 			for (Entry<Writable, Writable> valEntry : hf.entrySet()) {
